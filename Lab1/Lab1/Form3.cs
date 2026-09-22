@@ -53,9 +53,6 @@ namespace Lab1
                         dataGridView1.Rows[i].Cells[j].Value = twoDimArray[i, j].ToString();
                     }
                 }
-                var rezult = twoDimArray.Sum_Dob;
-                label3.Text = rezult.Item1.ToString("F2");
-                label4.Text = rezult.Item2.ToString("F2");
 
             }
             catch(Exception ex)

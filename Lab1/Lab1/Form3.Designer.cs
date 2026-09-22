@@ -35,8 +35,6 @@
             label2 = new Label();
             textBox2 = new TextBox();
             button2 = new Button();
-            label3 = new Label();
-            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -104,31 +102,11 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(535, 212);
-            label3.Name = "label3";
-            label3.Size = new Size(114, 20);
-            label3.TabIndex = 7;
-            label3.Text = "Сума від'ємних";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(535, 261);
-            label4.Name = "label4";
-            label4.Size = new Size(129, 20);
-            label4.TabIndex = 8;
-            label4.Text = "Добуток додатніх";
-            // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1063, 586);
-            Controls.Add(label4);
-            Controls.Add(label3);
             Controls.Add(button2);
             Controls.Add(textBox2);
             Controls.Add(label2);
