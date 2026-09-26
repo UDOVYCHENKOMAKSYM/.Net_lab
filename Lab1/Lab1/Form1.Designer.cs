@@ -49,6 +49,7 @@
             масивиToolStripMenuItem = new ToolStripMenuItem();
             одновимірніToolStripMenuItem = new ToolStripMenuItem();
             двовимірніМасивиToolStripMenuItem = new ToolStripMenuItem();
+            unitTestToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -205,7 +206,7 @@
             // 
             // масивиToolStripMenuItem
             // 
-            масивиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { одновимірніToolStripMenuItem, двовимірніМасивиToolStripMenuItem });
+            масивиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { одновимірніToolStripMenuItem, двовимірніМасивиToolStripMenuItem, unitTestToolStripMenuItem });
             масивиToolStripMenuItem.Name = "масивиToolStripMenuItem";
             масивиToolStripMenuItem.Size = new Size(77, 24);
             масивиToolStripMenuItem.Text = "Масиви";
@@ -223,6 +224,13 @@
             двовимірніМасивиToolStripMenuItem.Size = new Size(239, 26);
             двовимірніМасивиToolStripMenuItem.Text = "Двовимірні масиви";
             двовимірніМасивиToolStripMenuItem.Click += двовимірнімасивиToolStripMenuItem_Click;
+            // 
+            // unitTestToolStripMenuItem
+            // 
+            unitTestToolStripMenuItem.Name = "unitTestToolStripMenuItem";
+            unitTestToolStripMenuItem.Size = new Size(239, 26);
+            unitTestToolStripMenuItem.Text = "Unit Test";
+            unitTestToolStripMenuItem.Click += unitTestToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -276,5 +284,6 @@
         private ToolStripMenuItem масивиToolStripMenuItem;
         private ToolStripMenuItem одновимірніToolStripMenuItem;
         private ToolStripMenuItem двовимірніМасивиToolStripMenuItem;
+        private ToolStripMenuItem unitTestToolStripMenuItem;
     }
 }

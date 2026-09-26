@@ -47,5 +47,11 @@ namespace Lab1
         private void textBox1_TextChanged(object sender, EventArgs e) { }
         private void label2_Click(object sender, EventArgs e) { }
 
+        private void unitTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UnitTest f = new UnitTest();
+            f.Show();
+            this.Hide();
+        }
     }
 }
