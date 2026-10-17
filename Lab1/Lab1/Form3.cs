@@ -37,7 +37,7 @@ namespace Lab1
                 Arrays2D twoDimArray = new Arrays2D(n, m);
                 DataGridViewTextBoxColumn dvage;
                 //Створюємо необхідну кільксть колонок заданої ширини
-                for(int i = 0; i < m; i++)
+                for (int i = 0; i < m; i++)
                 {
                     dvage = new DataGridViewTextBoxColumn();
                     dvage.Width = 50;

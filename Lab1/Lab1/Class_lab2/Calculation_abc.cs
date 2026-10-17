@@ -30,7 +30,7 @@ namespace Lab1.Class_lab2
             get { return a; }
             set { a = value; }
         }
-                public int B
+        public int B
         {
             get { return b; }
             set { b = value; }
