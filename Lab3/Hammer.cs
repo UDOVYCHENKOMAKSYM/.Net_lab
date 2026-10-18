@@ -8,11 +8,11 @@ namespace Lab3
     {
         Wood,       // Дерево (базовий знос, factor = 1.0)
         Plastic,    // Пластик (крихкіший, factor = 1.8)
-        Fiberglass  // Фіберглас / Склопластик (найміцніший, factor = 0.6)
+        Metal  // Метал (найміцніший, factor = 0.7)
     }
     public class Hammer : Tool
     {
-        public HandleMaterial HandleMaterial { get; set; }
+        public HandleMaterial HandleMaterial { get; }
 
         public Hammer(string purpose, double weight, int serviceLife, HandleMaterial handleMaterial, double initialWear = 0)
             : base(purpose, weight, serviceLife, initialWear)
@@ -24,21 +24,21 @@ namespace Lab3
         {
             if (IsBroken)
             {
-                return "Молоток зламано! (Знос: " + CurrentWear.ToString("F1") + "%)";
+                return "Молоток зламано! Використання неможливе.";
             }
 
+            // Визначаємо коефіцієнт залежно від матеріалу ручки
             double factor = HandleMaterial switch
             {
-                HandleMaterial.Plastic => 1.8,
                 HandleMaterial.Wood => 1.0,
-                HandleMaterial.Fiberglass => 0.6,
+                HandleMaterial.Plastic => 1.8,
+                HandleMaterial.Metal => 0.7,
                 _ => 1.0
             };
 
-            AddWear(1.0, factor);
+            AddWear(factor);
 
-            string status = NeedsMaintenance ? " (потребує ремонту)" : "";
-            return "Удар молотком. Знос: " + CurrentWear.ToString("F1") + "%" + status;
+            return "Удар молотком. Знос: " + CurrentWear.ToString("F1") + "%";
         }
 
         public override string Sharpen()

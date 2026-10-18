@@ -43,7 +43,7 @@ namespace Lab3Tests
         public void Use_IncreasesWearCorrectly()
         {
             // Пластикова ручка має factor = 1.8
-            // Знос: (1.0 / 10) * 100 * 1.8 = 18.0%
+            // Знос: (100 / 10) * 1.8 = 18.0%
             var hammer = new Hammer("Тестовий", 1.0, 10, HandleMaterial.Plastic);
 
             string result = hammer.Use();

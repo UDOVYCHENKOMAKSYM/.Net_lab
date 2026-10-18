@@ -6,10 +6,10 @@ namespace Lab3
 {
     public abstract class Tool
     {
-        private string purpose;
-        private double weight;
-        private int serviceLife;
-        private double currentWear;
+        string purpose;
+        double weight;
+        int serviceLife;
+        double currentWear;
 
         public string Purpose
         {
@@ -28,7 +28,7 @@ namespace Lab3
             set
             {
                 if (value <= 0)
-                    throw new ArgumentException("Вага повинна бути додатнім числом.", nameof(value));
+                    throw new ArgumentException("Вага повинна бути додатним числом.", nameof(value));
                 weight = value;
             }
         }
@@ -53,6 +53,10 @@ namespace Lab3
                 {
                     currentWear = 0;
                 }
+                else if(value > 100)
+                {
+                    currentWear = 100;
+                }
                 else
                 {
                     currentWear = value;
@@ -72,11 +76,12 @@ namespace Lab3
             CurrentWear = initialWear;
         }
 
-        protected void AddWear(double baseLoad, double factor)
+        protected void AddWear(double factor)
         {
             if (IsBroken) return;
 
-            double wearIncrement = (baseLoad / ServiceLife) * 100.0 * factor;
+            // Базовий знос за 1 використання = (100% / ServiceLife) * коефіцієнт
+            double wearIncrement = (100.0 / ServiceLife) * factor;
             CurrentWear += wearIncrement;
         }
 

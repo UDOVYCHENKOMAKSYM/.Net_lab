@@ -5,8 +5,161 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+         Title="Система обліку інструментів" Height="650" Width="850"
+        Foreground="#FF252D35" Background="#FFD8FDBE" FontFamily="Cascadia Code, Consolas">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#81C784"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,15,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
 
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="0,3,0,3"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" FontWeight="Bold"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="0,5,0,0"/>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        
+        <Style x:Key="ToolStatusStyle" TargetType="TextBlock">
+            <Setter Property="Text" Value="У робочому стані"/>
+            <Setter Property="Foreground" Value="#2E7D32"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding NeedsMaintenance}" Value="True">
+                    <Setter Property="Text" Value="Потребує обслуговування"/>
+                    <Setter Property="Foreground" Value="#E65100"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsBroken}" Value="True">
+                    <Setter Property="Text" Value="Зламано"/>
+                    <Setter Property="Foreground" Value="#D32F2F"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate DataType="{x:Type local:Hammer}">
+            <StackPanel Margin="3">
+                <TextBlock FontWeight="Bold" Text="{Binding Purpose, StringFormat='Молоток: {0}'}"/>
+                <TextBlock Text="{Binding Weight, StringFormat='Вага: {0:F2} кг'}"/>
+                <TextBlock Text="{Binding CurrentWear, StringFormat='Знос: {0:F1}%'}"/>
+                <TextBlock Style="{StaticResource ToolStatusStyle}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type local:Drill}">
+            <StackPanel Margin="3">
+                <TextBlock FontWeight="Bold" Text="{Binding Purpose, StringFormat='Дриль: {0}'}"/>
+                <TextBlock Text="{Binding Weight, StringFormat='Вага: {0:F2} кг'}"/>
+                <TextBlock Text="{Binding CurrentWear, StringFormat='Знос: {0:F1}%'}"/>
+                <TextBlock Style="{StaticResource ToolStatusStyle}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="380"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Новий інструмент" Grid.Row="0" Grid.Column="0">
+            <StackPanel Orientation="Vertical" Margin="10">
+                <Label Content="Тип інструмента:"/>
+                <ComboBox x:Name="ToolTypeComboBox" Width="200" HorizontalAlignment="Left"
+                          SelectionChanged="ToolTypeComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Молоток" IsSelected="True"/>
+                    <ComboBoxItem Content="Дриль"/>
+                </ComboBox>
+
+                <Label Content="Призначення:"/>
+                <TextBox x:Name="PurposeTextBox"/>
+
+                <Label Content="Вага (кг):"/>
+                <TextBox x:Name="WeightTextBox"/>
+
+                <Label Content="Термін служби (операцій):"/>
+                <TextBox x:Name="ServiceLifeTextBox"/>
+
+                <StackPanel x:Name="HammerFields">
+                    <Label Content="Матеріал ручки:"/>
+                    <ComboBox x:Name="HandleMaterialComboBox" SelectedValuePath="Tag" SelectedIndex="0">
+                        <ComboBoxItem Content="Дерево" Tag="{x:Static local:HandleMaterial.Wood}"/>
+                        <ComboBoxItem Content="Пластик" Tag="{x:Static local:HandleMaterial.Plastic}"/>
+                        <ComboBoxItem Content="Метал" Tag="{x:Static local:HandleMaterial.Metal}"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel x:Name="DrillFields" Visibility="Collapsed">
+                    <Label Content="Тип патрона:"/>
+                    <ComboBox x:Name="ChuckTypeComboBox" SelectedValuePath="Tag" SelectedIndex="0">
+                        <ComboBoxItem Content="Швидкозатискний" Tag="{x:Static local:ChuckType.Keyless}"/>
+                        <ComboBoxItem Content="Ключовий" Tag="{x:Static local:ChuckType.Keyed}"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <Button x:Name="AddToolButton" Content="Додати інструмент" Click="AddToolButton_Click"/>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Список інструментів" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ListBox x:Name="ToolsListBox" Grid.Row="0"/>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="UseButton" Content="Використати" Click="UseButton_Click" Margin="5"/>
+                    <Button x:Name="SharpenButton" Content="Обслужити" Click="SharpenButton_Click" Margin="5"/>
+                    <Button x:Name="RepairButton" Content="Відремонтувати" Click="RepairButton_Click" Margin="5"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Аналітика" Grid.Row="2" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Center">
+                <TextBlock Text="Загальна вага інструментів на ТО: " FontWeight="Bold"/>
+                <TextBlock x:Name="TotalWeightTextBlock" d:Text="0,00 кг" FontWeight="Bold" Foreground="#D32F2F"/>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </Window>
+
